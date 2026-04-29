@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Propostas - Viewpoint</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  
+  <!-- CONTROLES (Não imprimíveis) -->
+  <aside class="dashboard no-print">
+    <div class="dashboard-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 2rem;">
+      <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(157, 78, 221, 0.6));">
+        <polygon points="10,20 90,20 50,90" fill="#9d4edd" />
+      </svg>
+      <div>
+        <h1 style="margin: 0; font-size: 1.8rem; font-family: var(--font-heading); color: #fff; line-height: 1.2;">Viewpoint</h1>
+        <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Gerador de Propostas</p>
+      </div>
+    </div>
+    
+    <form id="proposalForm">
+      <div class="form-group">
+        <label for="clientName">Nome do Cliente</label>
+        <input type="text" id="clientName" placeholder="Ex: João Silva" value="João Silva">
+      </div>
+      
+      <div class="form-group">
+        <label for="clientCompany">Empresa do Cliente</label>
+        <input type="text" id="clientCompany" placeholder="Ex: Tech Solutions" value="Tech Solutions">
+      </div>
+      
+      <div class="form-group">
+        <label for="clientContext">Contexto / Necessidades</label>
+        <textarea id="clientContext" rows="4" placeholder="Descreva os desafios e objetivos do cliente...">A Tech Solutions busca aumentar sua presença digital e triplicar a captação de leads qualificados nos próximos 6 meses através de tráfego pago e SEO estratégico.</textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="solutionDetails">A Solução Proposta</label>
+        <textarea id="solutionDetails" rows="4" placeholder="Descreva a solução de marketing que será aplicada...">Implementaremos um funil de conversão focado em tráfego pago (Google Ads e Meta Ads), além de uma reformulação completa na estrutura de SEO On-page e criação de landing pages de alta conversão.</textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Serviços Propostos</label>
+        <div class="checkbox-group" id="servicesSelection" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="2000" data-name="Gestão de Tráfego"> Gestão de Tráfego (R$ 2.000)</label>
+          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="1500" data-name="Consultoria SEO"> Consultoria SEO (R$ 1.500)</label>
+          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="1200" data-name="Social Media"> Social Media (R$ 1.200)</label>
+          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="1000" data-name="Criação de Landing Page"> Criação de Landing Page (R$ 1.000)</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="investmentValue">Valor do Investimento</label>
+        <input type="text" id="investmentValue" placeholder="Ex: R$ 5.000,00/mês" value="R$ 0,00/mês">
+      </div>
+    </form>
+
+    <div class="dashboard-actions">
+      <button id="exportPdfBtn" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+        </svg>
+        Exportar PDF
+      </button>
+    </div>
+  </aside>
+
+  <!-- ÁREA DE VISUALIZAÇÃO E IMPRESSÃO (PITCH DECK) -->
+  <main class="preview-area">
+    <div class="deck-container" id="proposalDocument">
+      
+      <!-- SLIDE 1: CAPA -->
+      <section class="slide cover-slide">
+        <div class="noise-overlay"></div>
+        <div class="slide-content">
+          <div class="cover-top">
+            <div class="cover-logo">
+              <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <polygon points="10,20 90,20 50,90" fill="var(--accent)" />
+              </svg>
+              <span>Viewpoint</span>
+            </div>
+            <p class="cover-date" id="currentDate"></p>
+          </div>
+          <div class="cover-center">
+            <h1 class="huge-title">PROPOSTA<br>ESTRATÉGICA</h1>
+            <p class="subtitle">Desenvolvida exclusivamente para <span id="outClientCompany" class="accent-text">Tech Solutions</span></p>
+          </div>
+          <img src="img1.png" alt="Abstract Shape" class="abs-shape shape-1">
+        </div>
+      </section>
+
+      <!-- SLIDE 2: O DESAFIO -->
+      <section class="slide challenge-slide">
+        <div class="noise-overlay"></div>
+        <div class="slide-content grid-layout">
+          <div class="col-left">
+            <span class="slide-number">01</span>
+            <h2 class="section-title">O<br>CENÁRIO<br>ATUAL</h2>
+          </div>
+          <div class="col-right">
+            <p class="intro-text">Olá, <strong id="outClientName" class="accent-text">João Silva</strong>. Analisamos o momento da <strong id="outClientCompany2">Tech Solutions</strong> e mapeamos os obstáculos atuais.</p>
+            <div class="glass-box">
+              <h3 class="box-title">Seu Desafio</h3>
+              <p id="outClientContext">A Tech Solutions busca aumentar sua presença digital e triplicar a captação de leads qualificados nos próximos 6 meses através de tráfego pago e SEO estratégico.</p>
+            </div>
+          </div>
+          <img src="img2.png" alt="Abstract Shape" class="abs-shape shape-2">
+        </div>
+      </section>
+
+      <!-- SLIDE 3: QUEM SOMOS -->
+      <section class="slide light-slide about-slide">
+        <div class="slide-content split-layout">
+          <div class="split-left">
+            <span class="slide-number dark-text">02</span>
+            <h2 class="section-title dark-text">SOBRE A<br>AGÊNCIA</h2>
+            <p class="body-text">Somos focados em performance exponencial. O marketing não é apenas estética, mas dados, estratégia e resultados palpáveis.</p>
+            <div class="metrics-row">
+              <div class="metric">
+                <h4 class="accent-text">+150</h4>
+                <p>Projetos</p>
+              </div>
+              <div class="metric">
+                <h4 class="accent-text">R$ 10M</h4>
+                <p>Gerados</p>
+              </div>
+            </div>
+          </div>
+          <div class="split-right">
+            <img src="img3.png" alt="Equipe Corporativa" class="cover-image">
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: SOLUÇÃO & SERVIÇOS -->
+      <section class="slide solution-slide">
+        <div class="noise-overlay"></div>
+        <div class="slide-content">
+          <div class="slide-header-top">
+            <span class="slide-number">03</span>
+            <h2 class="section-title">PLANO DE AÇÃO</h2>
+          </div>
+          <div class="solution-grid">
+            <div class="glass-card big-card">
+              <h3 class="box-title">Estratégia</h3>
+              <p id="outSolutionDetails">Implementaremos um funil de conversão focado em tráfego pago (Google Ads e Meta Ads), além de uma reformulação completa na estrutura de SEO On-page e criação de landing pages de alta conversão.</p>
+            </div>
+            <div class="glass-card list-card">
+              <h3 class="box-title">Serviços Inclusos</h3>
+              <ul class="clean-list" id="outPricingFeatures">
+                <li>✓ Selecione os serviços na barra lateral</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: INVESTIMENTO -->
+      <section class="slide investment-slide">
+        <div class="noise-overlay"></div>
+        <div class="slide-content center-layout">
+          <span class="slide-number">04</span>
+          <h2 class="section-title">INVESTIMENTO</h2>
+          <div class="investment-display">
+            <p class="fee-label">FEE MENSAL</p>
+            <h1 class="huge-value accent-text" id="outInvestmentValue">R$ 5.000,00</h1>
+          </div>
+          <div class="signatures-row">
+            <div class="sig-block">
+              <div class="sig-line"></div>
+              <p>Viewpoint</p>
+            </div>
+            <div class="sig-block">
+              <div class="sig-line"></div>
+              <p id="outClientNameSignature">João Silva</p>
+              <p class="sub-sig" id="outClientCompanySignature">Tech Solutions</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
