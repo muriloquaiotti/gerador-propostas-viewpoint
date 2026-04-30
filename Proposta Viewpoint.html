@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Proposta Comercial — Viewpoint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --bg: #07000F;
+    --bg-soft: #0F0420;
+    --violet-900: #2E0A5C;
+    --violet-700: #5B21B6;
+    --violet-500: #7C3AED;
+    --violet-400: #A855F7;
+    --violet-300: #C4B5FD;
+    --violet-200: #DDD6FE;
+    --ink: #F4F0FF;
+    --ink-dim: #B8AED4;
+    --ink-faint: #6B5F87;
+    --line: rgba(196, 181, 253, 0.18);
+    --line-strong: rgba(196, 181, 253, 0.35);
+    --card: rgba(124, 58, 237, 0.06);
+  }
+
+  html, body { margin: 0; padding: 0; background: #000; }
+  body {
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  deck-stage section {
+    background: var(--bg);
+    color: var(--ink);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Reusable backdrop layers */
+  .glow-tl {
+    position: absolute;
+    top: -300px; left: -300px;
+    width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.55) 0%, rgba(124, 58, 237, 0) 60%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .glow-br {
+    position: absolute;
+    bottom: -400px; right: -300px;
+    width: 1000px; height: 1000px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.4) 0%, rgba(168, 85, 247, 0) 60%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .glow-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1100px; height: 1100px;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.45) 0%, rgba(124, 58, 237, 0) 55%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+  .grain {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 3px 3px;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+  }
+
+  /* Rounded frame border decoration (referência das imagens) */
+  .frame {
+    position: absolute;
+    inset: 60px;
+    border: 1px solid var(--line);
+    border-radius: 220px;
+    pointer-events: none;
+  }
+
+  /* Typography helpers */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--violet-300);
+  }
+  .serif {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #FFFFFF 0%, #C4B5FD 50%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Layout primitives */
+  .slide-pad {
+    position: absolute;
+    inset: 0;
+    padding: 100px 120px 80px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    z-index: 2;
+  }
+
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .logo-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    font-family: 'Geist', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    text-transform: none;
+  }
+  .logo-mark::before {
+    content: "";
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #DDD6FE 0%, #7C3AED 50%, #2E0A5C 100%);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+  }
+
+  /* COVER */
+  .cover-wrap {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 80px 100px;
+    z-index: 2;
+  }
+  .cover-orb {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 780px; height: 780px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9) 0%, rgba(221, 214, 254, 0.3) 8%, transparent 18%),
+      radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.85) 0%, rgba(91, 33, 182, 0.6) 35%, rgba(15, 4, 32, 0.95) 70%, transparent 100%);
+    box-shadow: 0 0 200px rgba(124, 58, 237, 0.6), inset -40px -40px 80px rgba(0,0,0,0.4);
+    z-index: 1;
+  }
+  .cover-title {
+    position: absolute;
+    bottom: 140px;
+    left: 100px;
+    right: 100px;
+    z-index: 3;
+  }
+  .cover-title h1 {
+    font-family: 'Geist', sans-serif;
+    font-weight: 500;
+    font-size: 140px;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    margin: 0;
+    color: var(--ink);
+  }
+  .cover-title h1 .serif { color: var(--violet-300); font-weight: 400; font-size: 130px; }
+  .cover-meta {
+    position: absolute;
+    bottom: 80px;
+    left: 100px;
+    right: 100px;
+    display: flex; justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--ink-dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    z-index: 3;
+  }
+
+  /* Generic title slide */
+  .title-xl {
+    font-family: 'Geist', sans-serif;
+    font-weight: 500;
+    font-size: 96px;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .title-lg {
+    font-family: 'Geist', sans-serif;
+    font-weight: 500;
+    font-size: 76px;
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .body-lg {
+    font-size: 34px;
+    line-height: 1.45;
+    color: var(--ink-dim);
+    font-weight: 300;
+    letter-spacing: -0.005em;
+  }
+  .body-md {
+    font-size: 28px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    font-weight: 300;
+  }
+  .body-sm {
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    font-weight: 300;
+  }
+
+  /* CARDS */
+  .card {
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.08) 0%, rgba(124, 58, 237, 0.02) 100%);
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 44px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .card-glow {
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(168, 85, 247, 0.35), transparent 60%);
+    filter: blur(20px);
+    pointer-events: none;
+  }
+
+  /* Letter slide */
+  .letter {
+    max-width: 1300px;
+    font-size: 38px;
+    line-height: 1.55;
+    color: var(--ink);
+    font-weight: 300;
+    letter-spacing: -0.005em;
+  }
+  .letter p { margin: 0 0 32px; }
+  .letter .signature {
+    margin-top: 60px;
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 44px;
+    color: var(--violet-300);
+  }
+
+  /* Stat block */
+  .stat-num {
+    font-family: 'Geist', sans-serif;
+    font-weight: 400;
+    font-size: 180px;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    color: var(--ink);
+  }
+  .stat-num .unit {
+    font-size: 80px;
+    color: var(--violet-300);
+    font-weight: 300;
+    margin-left: 8px;
+  }
+
+  /* Pill / tag */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-200);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(124, 58, 237, 0.08);
+    white-space: nowrap;
+  }
+  .pill-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--violet-400);
+    box-shadow: 0 0 12px var(--violet-400);
+  }
+
+  /* Index */
+  .num-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-300);
+    letter-spacing: 0.1em;
+  }
+
+  /* Footer of slide */
+  .slide-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  /* Image placeholder (3D abstract style) */
+  .img-placeholder {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(168, 85, 247, 0.7) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 70%, rgba(91, 33, 182, 0.6) 0%, transparent 50%),
+      linear-gradient(135deg, #1a0833 0%, #07000F 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 24px;
+  }
+  .img-placeholder::before {
+    content: attr(data-label);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    color: rgba(196, 181, 253, 0.6);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .img-placeholder.with-orb::after {
+    content: "";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%; aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(168, 85, 247, 0.7) 40%, rgba(46, 10, 92, 0.9) 80%);
+    box-shadow: 0 0 80px rgba(168, 85, 247, 0.7);
+  }
+
+  /* Step list */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    margin-top: 60px;
+  }
+  .step {
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 36px 32px;
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.10) 0%, rgba(7, 0, 15, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+  }
+  .step-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-300);
+    letter-spacing: 0.12em;
+    margin-bottom: 80px;
+  }
+  .step-title {
+    font-size: 38px;
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    color: var(--ink);
+  }
+  .step-body {
+    font-size: 24px;
+    line-height: 1.45;
+    color: var(--ink-dim);
+    font-weight: 300;
+  }
+
+  /* Service grid */
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .svc {
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 20px 22px;
+    background: rgba(124, 58, 237, 0.04);
+    min-height: 130px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .svc-name {
+    font-size: 30px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    margin: 6px 0 0;
+  }
+  .svc-desc {
+    font-size: 24px;
+    color: var(--ink-dim);
+    line-height: 1.35;
+    font-weight: 300;
+    margin-top: 10px;
+  }
+  .svc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-300);
+    letter-spacing: 0.1em;
+  }
+
+  /* Timeline */
+  .timeline {
+    margin-top: 50px;
+    position: relative;
+    padding-left: 0;
+  }
+  .timeline-rail {
+    position: absolute;
+    top: 30px; bottom: 30px; left: 30px;
+    width: 1px;
+    background: linear-gradient(180deg, var(--violet-500), var(--violet-300), transparent);
+  }
+  .tl-row {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr;
+    align-items: start;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .tl-row:last-child { border-bottom: none; }
+  .tl-month {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-300);
+    letter-spacing: 0.1em;
+    padding-left: 60px;
+    position: relative;
+  }
+  .tl-month::before {
+    content: "";
+    position: absolute;
+    left: 23px;
+    top: 8px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--violet-400);
+    box-shadow: 0 0 16px var(--violet-400);
+  }
+  .tl-cell {
+    font-size: 24px;
+    color: var(--ink);
+    line-height: 1.4;
+    font-weight: 400;
+  }
+  .tl-cell-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .tl-head {
+    display: grid;
+    grid-template-columns: 200px 1fr 1fr 1fr;
+    padding-left: 60px;
+    margin-bottom: 8px;
+  }
+  .tl-head > div {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--ink-faint);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .tl-head > div:first-child { padding-left: 0; }
+
+  /* Team */
+  .team {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    margin-top: 60px;
+  }
+  .person {
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    overflow: hidden;
+    background: var(--bg-soft);
+  }
+  .person-photo {
+    aspect-ratio: 4/3;
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(168, 85, 247, 0.6) 0%, transparent 55%),
+      linear-gradient(135deg, #1a0833 0%, #07000F 100%);
+    display: flex; align-items: flex-end; padding: 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: rgba(196, 181, 253, 0.55);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .person-info { padding: 24px 24px 28px; }
+  .person-name { font-size: 26px; font-weight: 500; letter-spacing: -0.01em; margin: 0; }
+  .person-role { font-size: 24px; color: var(--violet-300); margin-top: 6px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em; }
+
+  /* Cases */
+  .cases {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .case {
+    border: 1px solid var(--line);
+    border-radius: 28px;
+    padding: 36px 32px;
+    background: linear-gradient(180deg, rgba(124, 58, 237, 0.10) 0%, rgba(7, 0, 15, 0) 100%);
+    display: flex;
+    flex-direction: column;
+    min-height: 380px;
+  }
+  .case-stat {
+    font-family: 'Geist', sans-serif;
+    font-weight: 400;
+    font-size: 76px;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+  .case-stat .small { font-size: 36px; color: var(--violet-300); }
+  .case-quote {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 26px;
+    line-height: 1.35;
+    color: var(--violet-200);
+    margin-bottom: 20px;
+  }
+  .case-meta {
+    margin-top: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* Investment */
+  .invest-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-top: 40px;
+  }
+  .invest-pill {
+    display: inline-flex;
+    padding: 14px 28px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--violet-200);
+    background: rgba(124, 58, 237, 0.10);
+    margin-bottom: 60px;
+    white-space: nowrap;
+  }
+  .invest-amount {
+    font-family: 'Geist', sans-serif;
+    font-weight: 400;
+    font-size: 200px;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    background: linear-gradient(180deg, #FFFFFF 0%, #C4B5FD 50%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    white-space: nowrap;
+  }
+  .invest-currency {
+    font-size: 80px;
+    color: var(--violet-300);
+    -webkit-text-fill-color: var(--violet-300);
+    font-weight: 300;
+  }
+  .invest-period {
+    margin-top: 24px;
+    font-size: 28px;
+    color: var(--ink-dim);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+  .invest-includes {
+    margin-top: 56px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1100px;
+  }
+
+  /* Closing CTA */
+  .cta-block {
+    border: 1px solid var(--line-strong);
+    border-radius: 220px;
+    padding: 100px 120px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(124, 58, 237, 0.25) 0%, transparent 70%);
+    position: relative;
+  }
+  .contact-row {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    margin-top: 60px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px;
+    color: var(--ink-dim);
+    letter-spacing: 0.06em;
+  }
+  .contact-row span { color: var(--violet-300); }
+
+  /* Section divider */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* utility */
+  .row { display: flex; }
+  .col { display: flex; flex-direction: column; }
+  .gap-md { gap: 32px; }
+  .gap-lg { gap: 60px; }
+  .between { justify-content: space-between; }
+  .grow { flex: 1; }
+
+  /* Bullet list */
+  .bullets { list-style: none; padding: 0; margin: 40px 0 0; display: flex; flex-direction: column; gap: 28px; }
+  .bullets li {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    align-items: start;
+    font-size: 30px;
+    color: var(--ink);
+    line-height: 1.4;
+    font-weight: 300;
+    letter-spacing: -0.005em;
+  }
+  .bullets li::before {
+    content: "";
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: var(--violet-400);
+    box-shadow: 0 0 16px var(--violet-400);
+    margin-top: 14px;
+  }
+
+  /* Two column layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 80px;
+    margin-top: 60px;
+    flex: 1;
+  }
+
+  /* Differential big list */
+  .diffs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+  }
+  .diff {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 28px;
+    padding: 32px 0;
+    border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .diff-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-300);
+    letter-spacing: 0.1em;
+    padding-top: 6px;
+  }
+  .diff-title {
+    font-size: 32px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    margin: 0 0 10px;
+  }
+  .diff-body {
+    font-size: 24px;
+    color: var(--ink-dim);
+    line-height: 1.45;
+    font-weight: 300;
+  }
+
+  /* Stat trio */
+  .stat-trio {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px;
+    margin-top: 80px;
+  }
+  .stat-cell { display: flex; flex-direction: column; gap: 16px; }
+  .stat-cell .num {
+    font-family: 'Geist', sans-serif;
+    font-weight: 400;
+    font-size: 140px;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #FFFFFF 0%, #C4B5FD 60%, #7C3AED 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-cell .num .small { font-size: 56px; color: var(--violet-300); -webkit-text-fill-color: var(--violet-300); }
+  .stat-cell .label {
+    font-size: 24px;
+    color: var(--ink-dim);
+    line-height: 1.4;
+    font-weight: 300;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- 1. CAPA -->
+  <section data-label="01 Capa">
+    <div class="glow-tl"></div>
+    <div class="glow-br"></div>
+    <div class="cover-orb"></div>
+    <div class="grain"></div>
+
+    <div class="cover-wrap">
+      <div class="slide-header" style="position:relative; z-index:3;">
+        <div class="logo-mark">Viewpoint</div>
+        <div>Proposta Comercial · 2026</div>
+      </div>
+    </div>
+
+    <div class="cover-title">
+      <div class="eyebrow" style="margin-bottom: 28px;">— Proposta preparada para</div>
+      <h1>Bruno<br><span class="serif">& Viewpoint</span></h1>
+    </div>
+
+    <div class="cover-meta">
+      <div>Confidencial</div>
+      <div>Parceria · 3 meses</div>
+      <div>v.1.0</div>
+    </div>
+  </section>
+
+  <!-- 2. CARTA DE ABERTURA -->
+  <section data-label="02 Abertura">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>01 / Abertura</div>
+      </div>
+
+      <div style="margin-top: 100px;" class="letter">
+        <div class="eyebrow" style="margin-bottom: 36px;">— Bruno,</div>
+        <p>Esta proposta não é sobre <span class="serif" style="color: var(--violet-300);">o que fazemos</span> — é sobre o que vamos construir juntos nos próximos três meses.</p>
+        <p>Estudamos seu momento, seu mercado e onde sua marca pode chegar. O que segue é um plano direto, com a metodologia, o time e os entregáveis que traduzem visão em resultado mensurável.</p>
+        <p style="color: var(--ink-dim); font-size: 32px;">Obrigado pela confiança em nos avaliar. Vamos ao trabalho.</p>
+        <div class="signature">— Equipe Viewpoint</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SOBRE A VIEWPOINT -->
+  <section data-label="03 Sobre">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>02 / Sobre</div>
+      </div>
+
+      <div class="two-col" style="margin-top: 80px;">
+        <div>
+          <div class="eyebrow" style="margin-bottom: 28px;">— Quem somos</div>
+          <h2 class="title-xl">A agência por trás de marcas que <span class="serif gradient-text">escalam.</span></h2>
+
+          <p class="body-lg" style="margin-top: 48px; max-width: 720px;">
+            Somos uma agência de marketing full-service que combina mídia performática, conteúdo de alta densidade e estratégia consultiva. Existimos para transformar atenção em receita.
+          </p>
+        </div>
+
+        <div class="img-placeholder with-orb" data-label="[ orb 3D — abstract sphere ]" style="aspect-ratio: 1; align-self: center;"></div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Viewpoint · Agência Full-Service</div>
+        <div>Desde 2020</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. NÚMEROS -->
+  <section data-label="04 Números">
+    <div class="glow-center"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>03 / Escala</div>
+      </div>
+
+      <div style="margin-top: 100px;">
+        <div class="eyebrow" style="margin-bottom: 32px;">— A operação em números</div>
+        <h2 class="title-xl" style="max-width: 1400px;">Volume não é<br>argumento — é <span class="serif gradient-text">prova.</span></h2>
+      </div>
+
+      <div class="stat-trio">
+        <div class="stat-cell">
+          <div class="num">6<span class="small">k</span></div>
+          <div class="label">Vídeos produzidos por mês — 60 mil por ano em rotação contínua</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">R$2<span class="small">M</span></div>
+          <div class="label">Investimento gerenciado em mídia paga ativa, mensalmente</div>
+        </div>
+        <div class="stat-cell">
+          <div class="num">9</div>
+          <div class="label">Frentes de atuação integradas, da estratégia à produção audiovisual</div>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="margin-top: 80px;">
+        <div>Dados consolidados · 2026</div>
+        <div>03</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. DIAGNÓSTICO -->
+  <section data-label="05 Diagnóstico">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>04 / Diagnóstico</div>
+      </div>
+
+      <div style="margin-top: 80px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— O contexto do Bruno</div>
+        <h2 class="title-lg" style="max-width: 1400px;">Onde a marca está hoje<br>— e o que precisa destravar.</h2>
+      </div>
+
+      <div class="two-col" style="margin-top: 60px;">
+        <div>
+          <div class="num-tag" style="margin-bottom: 20px;">SITUAÇÃO ATUAL</div>
+          <ul class="bullets">
+            <li>Presença digital ativa, mas sem narrativa unificada entre canais</li>
+            <li>Tráfego pago operando sem laboratório criativo dedicado</li>
+            <li>Conteúdo produzido em volume insuficiente para o ritmo do mercado</li>
+            <li>Funil de conversão com gargalos identificáveis em fundo de funil</li>
+          </ul>
+        </div>
+        <div>
+          <div class="num-tag" style="margin-bottom: 20px;">OPORTUNIDADE</div>
+          <ul class="bullets">
+            <li>Construir um sistema de aquisição previsível e escalável</li>
+            <li>Posicionar a marca em uma estética premium e reconhecível</li>
+            <li>Multiplicar o output criativo sem perder qualidade editorial</li>
+            <li>Transformar audiência em receita recorrente</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Diagnóstico inicial · sujeito a refinamento no kickoff</div>
+        <div>04</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OBJETIVOS -->
+  <section data-label="06 Objetivos">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>05 / Objetivos</div>
+      </div>
+
+      <div style="margin-top: 100px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— O que vamos perseguir</div>
+        <h2 class="title-xl">Quatro objetivos. Um<br>norte: <span class="serif gradient-text">resultado mensurável.</span></h2>
+      </div>
+
+      <div class="diffs">
+        <div class="diff">
+          <div class="diff-num">01</div>
+          <div>
+            <h3 class="diff-title">Crescimento de audiência qualificada</h3>
+            <p class="diff-body">Expandir base de seguidores e leads alinhados ao perfil de cliente ideal — não números vazios.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">02</div>
+          <div>
+            <h3 class="diff-title">Aumento mensurável de receita</h3>
+            <p class="diff-body">Otimizar campanhas e funil de conversão para reduzir CAC e maximizar LTV no horizonte de 90 dias.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">03</div>
+          <div>
+            <h3 class="diff-title">Posicionamento de marca premium</h3>
+            <p class="diff-body">Construir uma identidade visual e narrativa coerente em todos os pontos de contato com o público.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">04</div>
+          <div>
+            <h3 class="diff-title">Sistema de produção escalável</h3>
+            <p class="diff-body">Estabelecer cadência de conteúdo audiovisual robusta, capaz de alimentar todos os canais sem fadiga criativa.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Métricas detalhadas no plano de execução</div>
+        <div>05</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. METODOLOGIA -->
+  <section data-label="07 Metodologia">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>06 / Metodologia</div>
+      </div>
+
+      <div style="margin-top: 80px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Método Viewpoint</div>
+        <h2 class="title-lg">Quatro fases. Um processo<br>desenhado para <span class="serif gradient-text">não improvisar.</span></h2>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">FASE 01</div>
+          <h3 class="step-title">Imersão</h3>
+          <p class="step-body">Mergulho no negócio, no cliente e no mercado. Auditoria de ativos, dados e canais. Definição de KPIs.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">FASE 02</div>
+          <h3 class="step-title">Estratégia</h3>
+          <p class="step-body">Plano de mídia, big idea, arquitetura de conteúdo e roadmap criativo dos próximos 90 dias.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">FASE 03</div>
+          <h3 class="step-title">Execução</h3>
+          <p class="step-body">Produção em volume, gestão de campanhas, publicação e ativação multicanal com cadência semanal.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">FASE 04</div>
+          <h3 class="step-title">Otimização</h3>
+          <p class="step-body">Leitura de dados, testes A/B, iteração criativa contínua e relatórios consolidados a cada ciclo.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="margin-top: 80px;">
+        <div>Método proprietário · Viewpoint</div>
+        <div>06</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. SERVIÇOS -->
+  <section data-label="08 Serviços">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad" style="padding: 80px 100px 60px;">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>07 / Escopo</div>
+      </div>
+
+      <div style="margin-top: 40px;">
+        <div class="eyebrow" style="margin-bottom: 20px;">— O que está incluso</div>
+        <h2 class="title-lg" style="font-size: 64px;">Nove frentes integradas<br>sob uma <span class="serif gradient-text">única coordenação.</span></h2>
+      </div>
+
+      <div class="services">
+        <div class="svc">
+          <div class="svc-num">01 / MÍDIA</div>
+          <h3 class="svc-name">Tráfego pago</h3>
+          <p class="svc-desc">Meta Ads, Google Ads e mídia programática.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">02 / IDENTIDADE</div>
+          <h3 class="svc-name">Branding</h3>
+          <p class="svc-desc">Identidade visual e diretrizes de marca.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">03 / CONTEÚDO</div>
+          <h3 class="svc-name">Social media</h3>
+          <p class="svc-desc">Linha editorial, copy e gestão de canais.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">04 / AUDIOVISUAL</div>
+          <h3 class="svc-name">Vídeo & foto</h3>
+          <p class="svc-desc">Produção em volume com qualidade editorial.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">05 / DIGITAL</div>
+          <h3 class="svc-name">Web design</h3>
+          <p class="svc-desc">Landing pages e sites focados em conversão.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">06 / CONSULTORIA</div>
+          <h3 class="svc-name">Estratégia</h3>
+          <p class="svc-desc">Direcionamento sênior e leitura de dados.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">07 / RELACIONAMENTO</div>
+          <h3 class="svc-name">E-mail & CRM</h3>
+          <p class="svc-desc">Automação de funil e fluxos de nutrição.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">08 / PARCERIAS</div>
+          <h3 class="svc-name">Influenciadores</h3>
+          <p class="svc-desc">Curadoria e gestão de campanhas com creators.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">09 / ORGÂNICO</div>
+          <h3 class="svc-name">SEO</h3>
+          <p class="svc-desc">Estratégia de busca e otimização técnica.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="margin-top: 18px;">
+        <div>Escopo modular</div>
+        <div>07</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CRONOGRAMA -->
+  <section data-label="09 Cronograma">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>08 / Cronograma</div>
+      </div>
+
+      <div style="margin-top: 80px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Os primeiros 90 dias</div>
+        <h2 class="title-lg">Cada mês entrega marcos<br>visíveis e <span class="serif gradient-text">verificáveis.</span></h2>
+      </div>
+
+      <div class="timeline" style="margin-top: 36px;">
+        <div class="tl-head">
+          <div>Período</div>
+          <div>Estratégia</div>
+          <div>Conteúdo</div>
+          <div>Mídia & Resultado</div>
+        </div>
+        <div class="timeline-rail"></div>
+
+        <div class="tl-row">
+          <div class="tl-month">MÊS 01</div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Imersão</div>
+            Auditoria, plano de mídia, definição de KPIs e identidade visual aprovada.
+          </div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Setup</div>
+            Bíblia de marca, calendário editorial e primeira leva de produção audiovisual.
+          </div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Pixels & Estrutura</div>
+            Configuração de conversões, públicos e estruturação de contas.
+          </div>
+        </div>
+
+        <div class="tl-row">
+          <div class="tl-month">MÊS 02</div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Aceleração</div>
+            Iterações estratégicas baseadas nos primeiros dados e refinamento de público.
+          </div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Volume</div>
+            Cadência plena de publicação, primeiros vídeos longos e ações com creators.
+          </div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Otimização</div>
+            Testes A/B de criativos, escala de campanhas vencedoras e início de remarketing.
+          </div>
+        </div>
+
+        <div class="tl-row">
+          <div class="tl-month">MÊS 03</div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Consolidação</div>
+            Plano de continuidade, expansão de canais e revisão de posicionamento.
+          </div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Maturidade</div>
+            Biblioteca de conteúdo robusta, fluxos de e-mail ativos e CRM segmentado.
+          </div>
+          <div class="tl-cell">
+            <div class="tl-cell-label">Resultado</div>
+            Relatório consolidado de 90 dias e roadmap para o próximo ciclo.
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="margin-top: 24px;">
+        <div>Cronograma referencial · datas confirmadas no kickoff</div>
+        <div>08</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. TIME -->
+  <section data-label="10 Time">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>09 / Time</div>
+      </div>
+
+      <div style="margin-top: 50px;">
+        <div class="eyebrow" style="margin-bottom: 20px;">— Quem cuida da conta</div>
+        <h2 class="title-lg" style="font-size: 64px;">Um time sênior dedicado<br>— do <span class="serif gradient-text">briefing à entrega.</span></h2>
+      </div>
+
+      <div class="team" style="margin-top: 36px; gap: 22px;">
+        <div class="person">
+          <div class="person-photo" style="font-size: 24px;">[ retrato ]</div>
+          <div class="person-info" style="padding: 16px 20px 18px;">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Estrategista líder</div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-photo" style="font-size: 24px;">[ retrato ]</div>
+          <div class="person-info" style="padding: 16px 20px 18px;">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Diretor criativo</div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-photo" style="font-size: 24px;">[ retrato ]</div>
+          <div class="person-info" style="padding: 16px 20px 18px;">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Head de mídia</div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-photo" style="font-size: 24px;">[ retrato ]</div>
+          <div class="person-info" style="padding: 16px 20px 18px;">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Produtor audiovisual</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="body-md" style="margin-top: 24px; max-width: 1300px; font-size: 24px;">
+        Mais um squad operacional de social media, copywriter, designer e gestor de tráfego — alocado de forma exclusiva à conta durante todo o contrato.
+      </p>
+
+      <div class="slide-footer" style="margin-top: 20px;">
+        <div>Time central · 4 líderes + squad operacional</div>
+        <div>09</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. CASES -->
+  <section data-label="11 Cases">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>10 / Cases</div>
+      </div>
+
+      <div style="margin-top: 80px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Resultados reais</div>
+        <h2 class="title-lg">Quando a metodologia<br>encontra a <span class="serif gradient-text">execução certa.</span></h2>
+      </div>
+
+      <div class="cases">
+        <div class="case">
+          <div class="case-stat">0 → 60<span class="small">k</span></div>
+          <div class="case-quote">"Em três meses, construímos uma audiência que era inexistente — e qualificada."</div>
+          <div class="case-meta">Cliente · 90 dias · Conteúdo + mídia</div>
+        </div>
+        <div class="case">
+          <div class="case-stat">R$300<span class="small">k</span></div>
+          <div class="case-quote">"Faturamento gerado já no primeiro pitch de mentoria após nossa entrada."</div>
+          <div class="case-meta">Cliente · Lançamento · Estratégia + audiovisual</div>
+        </div>
+        <div class="case">
+          <div class="case-stat">+R$120<span class="small">k</span></div>
+          <div class="case-quote">"A diferença entre o primeiro e o segundo pitch foi o conteúdo que produzimos no evento."</div>
+          <div class="case-meta">Cliente · Evento presencial · Produção</div>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="margin-top: 30px;">
+        <div>Cases reais · clientes preservados sob NDA</div>
+        <div>10</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. DIFERENCIAIS -->
+  <section data-label="12 Diferenciais">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>11 / Diferenciais</div>
+      </div>
+
+      <div style="margin-top: 80px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Por que Viewpoint</div>
+        <h2 class="title-lg">O que não está em<br>nenhuma outra <span class="serif gradient-text">proposta.</span></h2>
+      </div>
+
+      <div class="diffs">
+        <div class="diff">
+          <div class="diff-num">A.</div>
+          <div>
+            <h3 class="diff-title">Metodologia proprietária</h3>
+            <p class="diff-body">Quatro fases testadas em centenas de operações, com playbooks documentados e métricas claras em cada etapa.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">B.</div>
+          <div>
+            <h3 class="diff-title">Ferramentas exclusivas</h3>
+            <p class="diff-body">Stack interno desenvolvido para nossos clientes — não disponível no mercado. Inclui dashboards, geradores e automações próprias.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">C.</div>
+          <div>
+            <h3 class="diff-title">Qualidade audiovisual</h3>
+            <p class="diff-body">Padrão estético acima da média do mercado, com 60 mil vídeos produzidos por ano sustentando a curva de aprendizado.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">D.</div>
+          <div>
+            <h3 class="diff-title">Portfólio comprovado</h3>
+            <p class="diff-body">Cases de marcas que escalaram audiência, faturamento e posicionamento sob nossa gestão — e seguem conosco.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Diferenciais Viewpoint</div>
+        <div>11</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. INVESTIMENTO -->
+  <section data-label="13 Investimento">
+    <div class="glow-center"></div>
+    <div class="grain"></div>
+    <div class="frame"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>12 / Investimento</div>
+      </div>
+
+      <div class="invest-wrap" style="margin: auto; padding: 0 60px;">
+        <div class="invest-pill">Proposta de investimento · 3 meses</div>
+
+        <div class="invest-amount">
+          <span class="invest-currency">R$</span>
+          <span>00.000</span>
+          <span style="font-size: 80px; color: var(--violet-300); -webkit-text-fill-color: var(--violet-300); font-weight: 300;">,00</span>
+        </div>
+
+        <div class="invest-period">por mês · contrato de 3 meses · todos os entregáveis inclusos</div>
+
+        <div class="invest-includes">
+          <span class="pill"><span class="pill-dot"></span>Tráfego pago</span>
+          <span class="pill"><span class="pill-dot"></span>Branding</span>
+          <span class="pill"><span class="pill-dot"></span>Social media</span>
+          <span class="pill"><span class="pill-dot"></span>Vídeo & foto</span>
+          <span class="pill"><span class="pill-dot"></span>Web design</span>
+          <span class="pill"><span class="pill-dot"></span>Estratégia</span>
+          <span class="pill"><span class="pill-dot"></span>E-mail & CRM</span>
+          <span class="pill"><span class="pill-dot"></span>Influenciadores</span>
+          <span class="pill"><span class="pill-dot"></span>SEO</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. PRÓXIMOS PASSOS + CONTATO -->
+  <section data-label="14 Próximos passos">
+    <div class="glow-tl"></div>
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>13 / Próximos passos</div>
+      </div>
+
+      <div style="margin-top: 80px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Daqui em diante</div>
+        <h2 class="title-lg">Três passos até a<br><span class="serif gradient-text">primeira entrega.</span></h2>
+      </div>
+
+      <div class="steps" style="grid-template-columns: repeat(3, 1fr); margin-top: 80px;">
+        <div class="step">
+          <div class="step-num">PASSO 01</div>
+          <h3 class="step-title">Aprovação da proposta</h3>
+          <p class="step-body">Você revisa, ajustamos juntos qualquer ponto do escopo e formalizamos a parceria.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">PASSO 02</div>
+          <h3 class="step-title">Kickoff & onboarding</h3>
+          <p class="step-body">Reunião de imersão, acessos, alinhamento de KPIs e definição do squad dedicado.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">PASSO 03</div>
+          <h3 class="step-title">Operação em ritmo</h3>
+          <p class="step-body">Em até 14 dias após o kickoff, primeiras campanhas no ar e produção rodando.</p>
+        </div>
+      </div>
+
+      <div class="slide-footer" style="margin-top: 80px;">
+        <div>Pronto para começar quando você estiver</div>
+        <div>13</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. FECHAMENTO / CONTATO -->
+  <section data-label="15 Contato">
+    <div class="glow-center"></div>
+    <div class="grain"></div>
+
+    <div class="slide-pad" style="padding: 80px 100px;">
+      <div class="slide-header">
+        <div class="logo-mark">Viewpoint</div>
+        <div>14 / Contato</div>
+      </div>
+
+      <div style="margin: auto; text-align: center; max-width: 1500px;">
+        <div class="eyebrow" style="margin-bottom: 36px;">— Vamos conversar</div>
+        <h2 style="font-family: 'Geist', sans-serif; font-weight: 500; font-size: 130px; line-height: 0.95; letter-spacing: -0.04em; margin: 0;">
+          Construir algo<br>
+          <span class="serif gradient-text" style="font-size: 140px;">memorável</span>
+          começa<br>com uma conversa.
+        </h2>
+
+        <div class="contact-row">
+          <div><span>↳</span> @viewpoint.com.br</div>
+          <div><span>↳</span> viewpoint.com.br</div>
+          <div><span>↳</span> +55 16 99296-5016</div>
+        </div>
+      </div>
+
+      <div class="slide-footer">
+        <div>Viewpoint · 2026</div>
+        <div>Obrigado, Bruno.</div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+</body>
+</html>

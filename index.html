@@ -5,180 +5,486 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gerador de Propostas - Viewpoint</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@200;300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  
-  <!-- CONTROLES (Não imprimíveis) -->
+
+  <!-- DASHBOARD -->
   <aside class="dashboard no-print">
-    <div class="dashboard-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 2rem;">
-      <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="filter: drop-shadow(0 0 8px rgba(157, 78, 221, 0.6));">
-        <polygon points="10,20 90,20 50,90" fill="#9d4edd" />
-      </svg>
-      <div>
-        <h1 style="margin: 0; font-size: 1.8rem; font-family: var(--font-heading); color: #fff; line-height: 1.2;">Viewpoint</h1>
-        <p style="margin: 0; font-size: 0.8rem; color: var(--text-muted);">Gerador de Propostas</p>
-      </div>
+    <div class="dashboard-header">
+      <img src="logo.svg" alt="Viewpoint Logo" style="height: 40px; filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4));">
     </div>
-    
+
     <form id="proposalForm">
       <div class="form-group">
         <label for="clientName">Nome do Cliente</label>
-        <input type="text" id="clientName" placeholder="Ex: João Silva" value="João Silva">
+        <input type="text" id="clientName" placeholder="Ex: Bruno" value="Bruno">
       </div>
-      
       <div class="form-group">
         <label for="clientCompany">Empresa do Cliente</label>
-        <input type="text" id="clientCompany" placeholder="Ex: Tech Solutions" value="Tech Solutions">
+        <input type="text" id="clientCompany" placeholder="Ex: Studio X" value="Studio X">
       </div>
-      
       <div class="form-group">
-        <label for="clientContext">Contexto / Necessidades</label>
-        <textarea id="clientContext" rows="4" placeholder="Descreva os desafios e objetivos do cliente...">A Tech Solutions busca aumentar sua presença digital e triplicar a captação de leads qualificados nos próximos 6 meses através de tráfego pago e SEO estratégico.</textarea>
+        <label for="diagnostico">Diagnóstico (Situação Atual)</label>
+        <textarea id="diagnostico" rows="3">Presença digital ativa, mas sem narrativa unificada entre canais. Tráfego pago operando sem laboratório criativo dedicado. Conteúdo produzido em volume insuficiente para o mercado.</textarea>
       </div>
-
       <div class="form-group">
-        <label for="solutionDetails">A Solução Proposta</label>
-        <textarea id="solutionDetails" rows="4" placeholder="Descreva a solução de marketing que será aplicada...">Implementaremos um funil de conversão focado em tráfego pago (Google Ads e Meta Ads), além de uma reformulação completa na estrutura de SEO On-page e criação de landing pages de alta conversão.</textarea>
+        <label for="oportunidade">Diagnóstico (Oportunidade)</label>
+        <textarea id="oportunidade" rows="3">Construir sistema de aquisição previsível e escalável. Posicionar a marca em estética premium e reconhecível. Multiplicar o output criativo sem perder qualidade.</textarea>
       </div>
-
       <div class="form-group">
         <label>Serviços Propostos</label>
-        <div class="checkbox-group" id="servicesSelection" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
-          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="2000" data-name="Gestão de Tráfego"> Gestão de Tráfego (R$ 2.000)</label>
-          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="1500" data-name="Consultoria SEO"> Consultoria SEO (R$ 1.500)</label>
-          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="1200" data-name="Social Media"> Social Media (R$ 1.200)</label>
-          <label style="display: flex; align-items: center; gap: 0.5rem;"><input type="checkbox" class="service-cb" value="1000" data-name="Criação de Landing Page"> Criação de Landing Page (R$ 1.000)</label>
+        <div class="checkbox-group" id="servicesSelection">
+          <label><input type="checkbox" class="service-cb" value="3000" data-name="Tráfego pago" data-cat="MÍDIA" checked> Tráfego pago (R$ 3.000)</label>
+          <label><input type="checkbox" class="service-cb" value="4000" data-name="Branding" data-cat="IDENTIDADE" checked> Branding (R$ 4.000)</label>
+          <label><input type="checkbox" class="service-cb" value="2500" data-name="Social media" data-cat="CONTEÚDO" checked> Social media (R$ 2.500)</label>
+          <label><input type="checkbox" class="service-cb" value="5000" data-name="Vídeo & foto" data-cat="AUDIOVISUAL" checked> Vídeo & foto (R$ 5.000)</label>
+          <label><input type="checkbox" class="service-cb" value="4500" data-name="Web design" data-cat="DIGITAL"> Web design (R$ 4.500)</label>
+          <label><input type="checkbox" class="service-cb" value="3500" data-name="Estratégia" data-cat="CONSULTORIA"> Estratégia (R$ 3.500)</label>
+          <label><input type="checkbox" class="service-cb" value="2000" data-name="E-mail & CRM" data-cat="CRM"> E-mail & CRM (R$ 2.000)</label>
+          <label><input type="checkbox" class="service-cb" value="3000" data-name="Influenciadores" data-cat="PARCERIAS"> Influenciadores (R$ 3.000)</label>
+          <label><input type="checkbox" class="service-cb" value="2500" data-name="SEO" data-cat="ORGÂNICO"> SEO (R$ 2.500)</label>
         </div>
       </div>
-
       <div class="form-group">
-        <label for="investmentValue">Valor do Investimento</label>
-        <input type="text" id="investmentValue" placeholder="Ex: R$ 5.000,00/mês" value="R$ 0,00/mês">
+        <label for="investmentValue">Valor Total Mensal</label>
+        <input type="text" id="investmentValue" readonly value="R$ 14.500,00/mês">
       </div>
     </form>
 
     <div class="dashboard-actions">
       <button id="exportPdfBtn" class="btn-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
-        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
         Exportar PDF
       </button>
     </div>
   </aside>
 
-  <!-- ÁREA DE VISUALIZAÇÃO E IMPRESSÃO (PITCH DECK) -->
+  <!-- SLIDES -->
   <main class="preview-area">
     <div class="deck-container" id="proposalDocument">
-      
-      <!-- SLIDE 1: CAPA -->
-      <section class="slide cover-slide">
-        <div class="noise-overlay"></div>
-        <div class="slide-content">
-          <div class="cover-top">
-            <div class="cover-logo">
-              <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <polygon points="10,20 90,20 50,90" fill="var(--accent)" />
-              </svg>
-              <span>Viewpoint</span>
-            </div>
-            <p class="cover-date" id="currentDate"></p>
-          </div>
-          <div class="cover-center">
-            <h1 class="huge-title">PROPOSTA<br>ESTRATÉGICA</h1>
-            <p class="subtitle">Desenvolvida exclusivamente para <span id="outClientCompany" class="accent-text">Tech Solutions</span></p>
-          </div>
-          <img src="img1.png" alt="Abstract Shape" class="abs-shape shape-1">
-        </div>
-      </section>
 
-      <!-- SLIDE 2: O DESAFIO -->
-      <section class="slide challenge-slide">
-        <div class="noise-overlay"></div>
-        <div class="slide-content grid-layout">
-          <div class="col-left">
-            <span class="slide-number">01</span>
-            <h2 class="section-title">O<br>CENÁRIO<br>ATUAL</h2>
+      <!-- 01 CAPA -->
+      <section class="slide cover-slide-new">
+        <div class="grid-bg-strong"></div>
+        <div class="glow-br"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <!-- Logo grande centralizada no topo -->
+          <div style="display:flex;justify-content:center;padding:1.5rem 0 0;">
+            <img src="logo2.svg" alt="Viewpoint" style="height:84px;filter:brightness(0) invert(1);">
           </div>
-          <div class="col-right">
-            <p class="intro-text">Olá, <strong id="outClientName" class="accent-text">João Silva</strong>. Analisamos o momento da <strong id="outClientCompany2">Tech Solutions</strong> e mapeamos os obstáculos atuais.</p>
-            <div class="glass-box">
-              <h3 class="box-title">Seu Desafio</h3>
-              <p id="outClientContext">A Tech Solutions busca aumentar sua presença digital e triplicar a captação de leads qualificados nos próximos 6 meses através de tráfego pago e SEO estratégico.</p>
-            </div>
-          </div>
-          <img src="img2.png" alt="Abstract Shape" class="abs-shape shape-2">
-        </div>
-      </section>
-
-      <!-- SLIDE 3: QUEM SOMOS -->
-      <section class="slide light-slide about-slide">
-        <div class="slide-content split-layout">
-          <div class="split-left">
-            <span class="slide-number dark-text">02</span>
-            <h2 class="section-title dark-text">SOBRE A<br>AGÊNCIA</h2>
-            <p class="body-text">Somos focados em performance exponencial. O marketing não é apenas estética, mas dados, estratégia e resultados palpáveis.</p>
-            <div class="metrics-row">
-              <div class="metric">
-                <h4 class="accent-text">+150</h4>
-                <p>Projetos</p>
-              </div>
-              <div class="metric">
-                <h4 class="accent-text">R$ 10M</h4>
-                <p>Gerados</p>
+          <div style="display:flex;flex-direction:column;justify-content:center;gap:0;flex:1;">
+            <div class="eyebrow" style="margin-bottom:1.2rem;">— Proposta preparada para</div>
+            <h1 class="cover-headline">
+              <span id="outClientNameCover">Bruno</span><br>
+              <span class="serif" style="color:var(--violet-300);font-size:inherit;">& Viewpoint</span>
+            </h1>
+            <div class="cover-card scrim-violet">
+              <div style="position:relative;z-index:2;">
+                <div class="cover-card-eyebrow">Sumário · 3 meses</div>
+                <div class="cover-card-text">Um plano direto, com método, time e entregáveis para transformar atenção em receita.</div>
+                <div style="display:flex;gap:0.4rem;margin-top:1rem;flex-wrap:wrap;" id="outCoverPills"></div>
               </div>
             </div>
           </div>
-          <div class="split-right">
-            <img src="img3.png" alt="Equipe Corporativa" class="cover-image">
+          <div class="footer">
+            <div>Confidencial</div>
+            <div id="outYear">2026</div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 4: SOLUÇÃO & SERVIÇOS -->
-      <section class="slide solution-slide">
-        <div class="noise-overlay"></div>
-        <div class="slide-content">
-          <div class="slide-header-top">
-            <span class="slide-number">03</span>
-            <h2 class="section-title">PLANO DE AÇÃO</h2>
+      <!-- 02 ABERTURA -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>01 / Abertura</div>
           </div>
-          <div class="solution-grid">
-            <div class="glass-card big-card">
-              <h3 class="box-title">Estratégia</h3>
-              <p id="outSolutionDetails">Implementaremos um funil de conversão focado em tráfego pago (Google Ads e Meta Ads), além de uma reformulação completa na estrutura de SEO On-page e criação de landing pages de alta conversão.</p>
-            </div>
-            <div class="glass-card list-card">
-              <h3 class="box-title">Serviços Inclusos</h3>
-              <ul class="clean-list" id="outPricingFeatures">
-                <li>✓ Selecione os serviços na barra lateral</li>
-              </ul>
-            </div>
+          <div style="margin-top:3rem;" class="letter">
+            <div class="eyebrow" style="margin-bottom:1rem;">— <span id="outClientNameLetter">Bruno</span>,</div>
+            <p>Esta proposta não é sobre <span class="serif" style="color:var(--violet-300);">o que fazemos</span> — é sobre o que vamos construir juntos nos próximos três meses.</p>
+            <p>Estudamos seu momento, seu mercado e onde sua marca pode chegar. O que segue é um plano direto, com a metodologia, o time e os entregáveis que traduzem visão em resultado mensurável.</p>
+            <p style="color:var(--ink-dim);font-size:0.85em;">Obrigado pela confiança em nos avaliar. Vamos ao trabalho.</p>
+            <div class="signature">— Equipe Viewpoint</div>
+          </div>
+          <!-- Decoração: separador e logo grande -->
+          <div class="letter-deco">
+            <div class="letter-deco-line"></div>
+            <img src="logo2.svg" alt="" style="height:48px;opacity:0.15;filter:brightness(0) invert(1);">
+          </div>
+          <div class="footer">
+            <div>Carta de abertura</div>
+            <div>01</div>
           </div>
         </div>
       </section>
 
-      <!-- SLIDE 5: INVESTIMENTO -->
-      <section class="slide investment-slide">
-        <div class="noise-overlay"></div>
-        <div class="slide-content center-layout">
-          <span class="slide-number">04</span>
-          <h2 class="section-title">INVESTIMENTO</h2>
-          <div class="investment-display">
-            <p class="fee-label">FEE MENSAL</p>
-            <h1 class="huge-value accent-text" id="outInvestmentValue">R$ 5.000,00</h1>
+      <!-- 03 SOBRE -->
+      <section class="slide">
+        <div class="glow-br"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>02 / Sobre</div>
           </div>
-          <div class="signatures-row">
-            <div class="sig-block">
-              <div class="sig-line"></div>
-              <p>Viewpoint</p>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Quem somos</div>
+            <h2 class="title-lg">A agência por trás de marcas que <span class="serif grad-text">escalam.</span></h2>
+          </div>
+          <p class="body-lg" style="margin-top:1.5rem;">Somos uma agência full-service que combina mídia performática, conteúdo de alta densidade e estratégia consultiva. Existimos para transformar atenção em receita.</p>
+          <div class="about-img" style="margin-top:1.5rem;flex:1;min-height:0;">
+            <img src="equipe.png" alt="Equipe Viewpoint" style="width:100%;height:100%;object-fit:cover;border-radius:0.8rem;">
+          </div>
+          <div class="footer">
+            <div>Viewpoint · Full-Service</div>
+            <div>02</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 03.5 OS SÓCIOS -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>02.5 / Liderança</div>
+          </div>
+          <div style="margin-top:2rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Quem cuida da sua conta</div>
+            <h2 class="title-lg">Os sócios<br>por trás da <span class="serif grad-text">Viewpoint.</span></h2>
+          </div>
+          <div class="partners-grid">
+            <div class="partner-card">
+              <div class="partner-photo">
+                <img src="GUI.png" alt="Gui — Sócio Viewpoint">
+              </div>
+              <div class="partner-info">
+                <h4 class="partner-name">Gui</h4>
+                <div class="partner-role">Co-fundador · Criativo</div>
+              </div>
             </div>
-            <div class="sig-block">
-              <div class="sig-line"></div>
-              <p id="outClientNameSignature">João Silva</p>
-              <p class="sub-sig" id="outClientCompanySignature">Tech Solutions</p>
+            <div class="partner-card">
+              <div class="partner-photo">
+                <img src="MURILO.png" alt="Murilo — Sócio Viewpoint">
+              </div>
+              <div class="partner-info">
+                <h4 class="partner-name">Murilo</h4>
+                <div class="partner-role">Co-fundador · Estrategista</div>
+              </div>
             </div>
+          </div>
+          <p class="body-lg" style="margin-top:1.5rem;">Mais de 5 anos transformando marcas em negócios escaláveis. Da estratégia à produção — tudo dentro de casa, sem intermediários.</p>
+          <div class="footer">
+            <div>Liderança Viewpoint</div>
+            <div>02.5</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 04 NÚMEROS -->
+      <section class="slide">
+        <div class="glow-center"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>03 / Escala</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— A operação em números</div>
+            <h2 class="title-lg">Volume não é<br>argumento — é <span class="serif grad-text">prova.</span></h2>
+          </div>
+          <div class="stat-stack">
+            <div class="stat-row">
+              <div class="stat-num">6<span class="small">k</span></div>
+              <div class="stat-lbl">Vídeos produzidos por mês — 60 mil por ano em rotação contínua.</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-num">R$2<span class="small">M</span></div>
+              <div class="stat-lbl">Investimento gerenciado em mídia paga ativa, mensalmente.</div>
+            </div>
+            <div class="stat-row">
+              <div class="stat-num">9</div>
+              <div class="stat-lbl">Frentes integradas, da estratégia à produção audiovisual completa.</div>
+            </div>
+          </div>
+          <div class="footer">
+            <div>Dados consolidados · 2026</div>
+            <div>03</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05 DIAGNÓSTICO -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>04 / Diagnóstico</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— O contexto do <span id="outClientNameDiag">Bruno</span></div>
+            <h2 class="title-lg">Onde a marca está hoje — e o que precisa <span class="serif grad-text">destravar.</span></h2>
+          </div>
+          <div style="margin-top:1.5rem;">
+            <div class="num-tag">SITUAÇÃO ATUAL</div>
+            <ul class="bullets" id="outDiagnosticoBullets">
+              <li>Presença digital ativa, mas sem narrativa unificada entre canais</li>
+              <li>Tráfego pago operando sem laboratório criativo dedicado</li>
+              <li>Conteúdo produzido em volume insuficiente para o mercado</li>
+            </ul>
+          </div>
+          <div style="margin-top:1.2rem;">
+            <div class="num-tag">OPORTUNIDADE</div>
+            <ul class="bullets" id="outOportunidadeBullets">
+              <li>Construir sistema de aquisição previsível e escalável</li>
+              <li>Posicionar a marca em estética premium e reconhecível</li>
+              <li>Multiplicar o output criativo sem perder qualidade</li>
+            </ul>
+          </div>
+          <div class="footer">
+            <div>Diagnóstico inicial</div>
+            <div>04</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 06 OBJETIVOS -->
+      <section class="slide">
+        <div class="glow-br"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>05 / Objetivos</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— O que vamos perseguir</div>
+            <h2 class="title-lg">Quatro objetivos.<br>Um norte: <span class="serif grad-text">resultado.</span></h2>
+          </div>
+          <div class="diffs">
+            <div class="diff"><div class="diff-num">01</div><div><h3 class="diff-title">Audiência qualificada</h3><p class="diff-body">Expandir base de seguidores e leads alinhados ao perfil de cliente ideal.</p></div></div>
+            <div class="diff"><div class="diff-num">02</div><div><h3 class="diff-title">Receita mensurável</h3><p class="diff-body">Otimizar campanhas e funil para reduzir CAC e maximizar LTV em 90 dias.</p></div></div>
+            <div class="diff"><div class="diff-num">03</div><div><h3 class="diff-title">Marca premium</h3><p class="diff-body">Construir identidade visual e narrativa coerente em todos os pontos de contato.</p></div></div>
+            <div class="diff"><div class="diff-num">04</div><div><h3 class="diff-title">Produção escalável</h3><p class="diff-body">Cadência audiovisual robusta, capaz de alimentar todos os canais sem fadiga criativa.</p></div></div>
+          </div>
+          <div class="footer">
+            <div>Objetivos · 90 dias</div>
+            <div>05</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 07 METODOLOGIA -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>06 / Método</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Método Viewpoint</div>
+            <h2 class="title-lg">Quatro fases, um<br>processo <span class="serif grad-text">sem improviso.</span></h2>
+          </div>
+          <div class="steps-vert">
+            <div class="stp"><div class="stp-num">FASE 01</div><div><h3 class="stp-title">Imersão</h3><p class="stp-body">Mergulho no negócio, no cliente e no mercado. Auditoria de ativos, dados e canais.</p></div></div>
+            <div class="stp"><div class="stp-num">FASE 02</div><div><h3 class="stp-title">Estratégia</h3><p class="stp-body">Plano de mídia, big idea, arquitetura de conteúdo e roadmap criativo dos próximos 90 dias.</p></div></div>
+            <div class="stp"><div class="stp-num">FASE 03</div><div><h3 class="stp-title">Execução</h3><p class="stp-body">Produção em volume, gestão de campanhas, publicação e ativação multicanal.</p></div></div>
+            <div class="stp"><div class="stp-num">FASE 04</div><div><h3 class="stp-title">Otimização</h3><p class="stp-body">Leitura de dados, testes A/B, iteração criativa contínua e relatórios consolidados.</p></div></div>
+          </div>
+          <div class="footer">
+            <div>Método proprietário</div>
+            <div>06</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 08 SERVIÇOS -->
+      <section class="slide">
+        <div class="glow-br"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>07 / Escopo</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— O que está incluso</div>
+            <h2 class="title-lg" id="outSvcTitle">Quatro frentes sob<br>uma <span class="serif grad-text">única coordenação.</span></h2>
+          </div>
+          <div class="svc-grid" id="outSvcGrid">
+            <!-- Populated by JS -->
+          </div>
+          <div class="footer">
+            <div>Escopo modular</div>
+            <div>07</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 09 CRONOGRAMA -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>08 / Cronograma</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Os primeiros 90 dias</div>
+            <h2 class="title-lg">Cada mês entrega<br>marcos <span class="serif grad-text">verificáveis.</span></h2>
+          </div>
+          <div class="tline">
+            <div class="tline-item"><div class="tline-month">MÊS 01</div><div class="tline-content"><h3 class="tline-h">Imersão & setup</h3><div class="tline-sub">Auditoria, plano de mídia, definição de KPIs, identidade visual aprovada e estruturação de contas e pixels.</div></div></div>
+            <div class="tline-item"><div class="tline-month">MÊS 02</div><div class="tline-content"><h3 class="tline-h">Aceleração</h3><div class="tline-sub">Cadência plena de publicação, testes A/B e escala das campanhas vencedoras.</div></div></div>
+            <div class="tline-item"><div class="tline-month">MÊS 03</div><div class="tline-content"><h3 class="tline-h">Consolidação</h3><div class="tline-sub">Biblioteca de conteúdo madura, fluxos ativos, relatório de 90 dias e roadmap para o próximo ciclo.</div></div></div>
+          </div>
+          <div class="footer">
+            <div>Cronograma referencial</div>
+            <div>08</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 10 CASES -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>09 / Cases</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Resultados reais</div>
+            <h2 class="title-lg">Quando metodologia<br>encontra <span class="serif grad-text">execução.</span></h2>
+          </div>
+          <div class="cases">
+            <div class="case"><div class="case-num">0→60<span class="small">k</span></div><div><div class="case-q">"Em três meses construímos uma audiência inexistente — e qualificada."</div><div class="case-meta">Cliente · 90 dias</div></div></div>
+            <div class="case"><div class="case-num">R$300<span class="small">k</span></div><div><div class="case-q">"Faturamento gerado já no primeiro pitch de mentoria após nossa entrada."</div><div class="case-meta">Cliente · Lançamento</div></div></div>
+            <div class="case"><div class="case-num">+R$120<span class="small">k</span></div><div><div class="case-q">"A diferença entre o primeiro e o segundo pitch foi o conteúdo do evento."</div><div class="case-meta">Cliente · Evento presencial</div></div></div>
+          </div>
+          <div class="footer">
+            <div>Cases reais · NDA</div>
+            <div>09</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 11 DIFERENCIAIS -->
+      <section class="slide">
+        <div class="glow-br"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>10 / Diferenciais</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Por que Viewpoint</div>
+            <h2 class="title-lg">O que não está em<br>nenhuma outra <span class="serif grad-text">proposta.</span></h2>
+          </div>
+          <div class="diffs">
+            <div class="diff"><div class="diff-num">A.</div><div><h3 class="diff-title">Metodologia proprietária</h3><p class="diff-body">Quatro fases testadas em centenas de operações, com playbooks documentados.</p></div></div>
+            <div class="diff"><div class="diff-num">B.</div><div><h3 class="diff-title">Ferramentas exclusivas</h3><p class="diff-body">Stack interno desenvolvido para nossos clientes — não disponível no mercado.</p></div></div>
+            <div class="diff"><div class="diff-num">C.</div><div><h3 class="diff-title">Qualidade audiovisual</h3><p class="diff-body">Padrão estético acima da média, com 60 mil vídeos por ano sustentando a curva.</p></div></div>
+            <div class="diff"><div class="diff-num">D.</div><div><h3 class="diff-title">Portfólio comprovado</h3><p class="diff-body">Marcas que escalaram audiência, faturamento e posicionamento sob nossa gestão.</p></div></div>
+          </div>
+          <div class="footer">
+            <div>Diferenciais Viewpoint</div>
+            <div>10</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 12 INVESTIMENTO -->
+      <section class="slide">
+        <div class="glow-center"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>11 / Investimento</div>
+          </div>
+          <div class="invest-wrap">
+            <div class="invest-pill">Proposta · 3 meses</div>
+            <div class="invest-amount">
+              <span class="invest-currency">R$</span>
+              <span id="outInvestNum">14.500</span>
+              <span class="invest-cents">,00</span>
+            </div>
+            <div class="invest-period">por mês · todos os entregáveis inclusos</div>
+            <div class="invest-pills" id="outInvestPills">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+          <div class="footer">
+            <div>Investimento · 3 meses</div>
+            <div>11</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 13 PRÓXIMOS PASSOS -->
+      <section class="slide">
+        <div class="glow-tl"></div>
+        <div class="glow-br"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>12 / Próximos passos</div>
+          </div>
+          <div style="margin-top:2.5rem;">
+            <div class="eyebrow" style="margin-bottom:0.8rem;">— Daqui em diante</div>
+            <h2 class="title-lg">Três passos até a<br><span class="serif grad-text">primeira entrega.</span></h2>
+          </div>
+          <div class="steps-vert">
+            <div class="stp"><div class="stp-num">PASSO 01</div><div><h3 class="stp-title">Aprovação</h3><p class="stp-body">Você revisa, ajustamos juntos qualquer ponto do escopo e formalizamos a parceria.</p></div></div>
+            <div class="stp"><div class="stp-num">PASSO 02</div><div><h3 class="stp-title">Kickoff</h3><p class="stp-body">Reunião de imersão, acessos, alinhamento de KPIs e definição do squad dedicado.</p></div></div>
+            <div class="stp"><div class="stp-num">PASSO 03</div><div><h3 class="stp-title">Operação</h3><p class="stp-body">Em até 14 dias após kickoff, primeiras campanhas no ar e produção rodando.</p></div></div>
+          </div>
+          <div class="footer">
+            <div>Pronto para começar</div>
+            <div>12</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 14 CONTATO -->
+      <section class="slide">
+        <div class="glow-center"></div>
+        <div class="grain"></div>
+        <div class="pad">
+          <div class="head">
+            <div class="logo"><img src="logo2.svg" alt="Viewpoint" style="height:56px;filter:brightness(0) invert(1);"></div>
+            <div>13 / Contato</div>
+          </div>
+          <div style="margin:auto;text-align:center;">
+            <div class="big-tri"></div>
+            <div class="eyebrow" style="margin:1.5rem 0 1rem;">— Vamos conversar</div>
+            <h2 class="title-lg">Construir algo<br><span class="serif grad-text">memorável</span><br>começa com<br>uma conversa.</h2>
+            <div class="contact-stack">
+              <div><span>↳</span> @viewpoint.com.br</div>
+              <div><span>↳</span> viewpoint.com.br</div>
+              <div><span>↳</span> +55 16 99296-5016</div>
+            </div>
+          </div>
+          <div class="footer">
+            <div>Viewpoint · 2026</div>
+            <div>Obrigado, <span id="outClientNameContact">Bruno</span>.</div>
           </div>
         </div>
       </section>

@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Proposta Comercial — Viewpoint (9:16)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="deck-stage.js"></script>
+<style>
+  :root {
+    --bg: #07000F;
+    --bg-soft: #0F0420;
+    --violet-900: #2E0A5C;
+    --violet-700: #5B21B6;
+    --violet-500: #7C3AED;
+    --violet-400: #A855F7;
+    --violet-300: #C4B5FD;
+    --violet-200: #DDD6FE;
+    --ink: #F4F0FF;
+    --ink-dim: #B8AED4;
+    --ink-faint: #6B5F87;
+    --line: rgba(196, 181, 253, 0.18);
+    --line-strong: rgba(196, 181, 253, 0.35);
+  }
+  html, body { margin: 0; padding: 0; background: #000; }
+  body {
+    font-family: 'Bai Jamjuree', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+  deck-stage section {
+    background: var(--bg);
+    color: var(--ink);
+    overflow: hidden;
+    position: relative;
+  }
+  /* Auto grid pattern em todos os slides */
+  deck-stage section::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(196, 181, 253, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196, 181, 253, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* GRID PATTERN — base de todos os slides */
+  .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(196, 181, 253, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196, 181, 253, 0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: 0 0;
+    pointer-events: none;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, black 30%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 50%, black 30%, transparent 100%);
+  }
+  .grid-bg-strong {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(196, 181, 253, 0.10) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196, 181, 253, 0.10) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  /* SCRIM panel — inspirado nas referências (cards modulares pretos com glow) */
+  .scrim {
+    background: linear-gradient(180deg, #131320 0%, #08000F 100%);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 32px;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+  .scrim::before {
+    content: "";
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+  .scrim-violet {
+    background:
+      radial-gradient(ellipse at 80% 80%, rgba(124,58,237,0.45) 0%, transparent 60%),
+      linear-gradient(180deg, #1a0a3a 0%, #07000F 100%);
+    border: 1px solid rgba(196,181,253,0.18);
+    border-radius: 32px;
+    box-shadow: 0 30px 80px rgba(124,58,237,0.25), inset 0 1px 0 rgba(255,255,255,0.06);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* glows */
+  .glow-tl { position: absolute; top: -300px; left: -200px; width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(124,58,237,0.55) 0%, transparent 60%); filter: blur(20px); pointer-events:none; }
+  .glow-br { position: absolute; bottom: -300px; right: -200px; width: 900px; height: 900px;
+    background: radial-gradient(circle, rgba(168,85,247,0.45) 0%, transparent 60%); filter: blur(20px); pointer-events:none; }
+  .glow-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 1100px; height: 1100px;
+    background: radial-gradient(circle, rgba(124,58,237,0.5) 0%, transparent 60%); filter: blur(20px); pointer-events:none; }
+  .grain { position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 3px 3px;
+    pointer-events:none; mix-blend-mode: overlay; }
+
+  /* layout */
+  .pad {
+    position: absolute; inset: 0;
+    padding: 90px 80px 70px;
+    display: flex; flex-direction: column;
+    box-sizing: border-box;
+    z-index: 2;
+  }  .head {
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: var(--ink-faint);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .footer {
+    margin-top: auto;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: var(--ink-faint);
+    letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .logo {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 600;
+    font-size: 28px; letter-spacing: 0.04em;
+    color: var(--ink); text-transform: none;
+  }
+  .logo .tri {
+    width: 0; height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 22px solid var(--violet-500);
+    filter: drop-shadow(0 0 14px rgba(124,58,237,0.8));
+  }
+
+  /* type */
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--violet-300);
+  }
+  .serif { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .grad-text {
+    background: linear-gradient(135deg, #FFFFFF 0%, #C4B5FD 50%, #7C3AED 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .title-xl {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 600;
+    font-size: 110px; line-height: 1; letter-spacing: -0.02em;
+    margin: 0; color: var(--ink);
+  }
+  .title-lg {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 600;
+    font-size: 88px; line-height: 1.02; letter-spacing: -0.02em;
+    margin: 0; color: var(--ink);
+  }
+  .title-md {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 600;
+    font-size: 72px; line-height: 1.05; letter-spacing: -0.02em;
+    margin: 0; color: var(--ink);
+  }
+  .body-lg { font-size: 36px; line-height: 1.45; color: var(--ink-dim); font-weight: 300; }
+  .body-md { font-size: 30px; line-height: 1.5; color: var(--ink-dim); font-weight: 300; }
+  .body-sm { font-size: 26px; line-height: 1.5; color: var(--ink-dim); font-weight: 300; }
+  .num-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px; color: var(--violet-300); letter-spacing: 0.1em;
+  }
+
+  /* COVER — split layout, headline esquerda + card violeta direita (no central orb) */
+  .cover-grid {
+    position: absolute; inset: 0;
+    z-index: 2;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: 80px 70px 70px;
+    box-sizing: border-box;
+  }
+  .cover-headline {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-weight: 500;
+    font-size: 130px;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .cover-card {
+    margin-top: 60px;
+    padding: 50px 50px 50px;
+    border-radius: 36px;
+  }
+  .cover-card-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px;
+    color: var(--violet-200);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+  .cover-card-text {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 38px;
+    line-height: 1.35;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+
+  /* big logo lockup */
+  .big-logo {
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: 28px;
+  }
+  .big-tri {
+    width: 0; height: 0;
+    border-left: 36px solid transparent;
+    border-right: 36px solid transparent;
+    border-top: 56px solid var(--violet-500);
+    filter: drop-shadow(0 0 24px rgba(124,58,237,0.9));
+  }
+  .big-name {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 700;
+    font-size: 92px; letter-spacing: 0.02em;
+    color: var(--ink);
+  }
+
+  /* placeholder image */
+  .img-ph {
+    position: relative; border: 1px solid var(--line); border-radius: 28px;
+    overflow: hidden;
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(168,85,247,0.7) 0%, transparent 50%),
+      radial-gradient(ellipse at 70% 70%, rgba(91,33,182,0.6) 0%, transparent 50%),
+      linear-gradient(135deg, #1a0833 0%, #07000F 100%);
+    display: flex; align-items: flex-end; padding: 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: rgba(196,181,253,0.6);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .img-ph.with-orb::after {
+    content: ""; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%,-50%);
+    width: 65%; aspect-ratio: 1; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(168,85,247,0.7) 40%, rgba(46,10,92,0.9) 80%);
+    box-shadow: 0 0 80px rgba(168,85,247,0.7);
+  }
+
+  /* bullets */
+  .bullets { list-style: none; padding: 0; margin: 36px 0 0; display: flex; flex-direction: column; gap: 24px; }
+  .bullets li {
+    display: grid; grid-template-columns: 50px 1fr;
+    align-items: start;
+    font-size: 32px; color: var(--ink); line-height: 1.4; font-weight: 300;
+  }
+  .bullets li::before {
+    content: ""; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--violet-400);
+    box-shadow: 0 0 14px var(--violet-400);
+    margin-top: 14px;
+  }
+
+  /* stat cell */
+  .stat-stack { display: flex; flex-direction: column; gap: 60px; margin-top: 80px; }
+  .stat-row {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 50px;
+    align-items: center;
+    border-top: 1px solid var(--line); padding-top: 40px;
+  }
+  .stat-row:first-child { border-top: none; padding-top: 0; }
+  .stat-num {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 500;
+    font-size: 200px; line-height: 0.92; letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #FFFFFF 0%, #C4B5FD 60%, #7C3AED 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat-num .small { font-size: 90px; color: var(--violet-300); -webkit-text-fill-color: var(--violet-300); }
+  .stat-lbl {
+    font-size: 30px; color: var(--ink-dim); line-height: 1.4; font-weight: 300;
+  }
+
+  /* steps */
+  .steps-vert { display: flex; flex-direction: column; gap: 24px; margin-top: 60px; }
+  .stp {
+    border: 1px solid var(--line); border-radius: 28px; padding: 32px 36px;
+    background: linear-gradient(180deg, rgba(124,58,237,0.10) 0%, rgba(7,0,15,0) 100%);
+    display: grid; grid-template-columns: 140px 1fr; gap: 30px; align-items: start;
+  }
+  .stp-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; color: var(--violet-300); letter-spacing: 0.1em;
+    padding-top: 6px;
+  }
+  .stp-title {
+    font-size: 44px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0 0 12px; color: var(--ink);
+    font-family: 'Bai Jamjuree', sans-serif;
+  }
+  .stp-body {
+    font-size: 26px; color: var(--ink-dim); line-height: 1.4; font-weight: 300;
+  }
+
+  /* services grid 3x3 */
+  .svc-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 18px; margin-top: 30px;
+  }
+  .svc {
+    border: 1px solid var(--line); border-radius: 22px;
+    padding: 24px 26px;
+    background: rgba(124,58,237,0.04);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .svc-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: var(--violet-300); letter-spacing: 0.1em;
+  }
+  .svc-name {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 36px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .svc-desc {
+    font-size: 24px; color: var(--ink-dim); line-height: 1.35; font-weight: 300; margin: 0;
+  }
+
+  /* timeline vertical */
+  .tline { display: flex; flex-direction: column; gap: 24px; margin-top: 50px; }
+  .tline-item {
+    border: 1px solid var(--line); border-radius: 28px; padding: 32px 36px;
+    background: linear-gradient(180deg, rgba(124,58,237,0.08) 0%, rgba(7,0,15,0) 100%);
+    display: grid; grid-template-columns: 220px 1fr; gap: 28px; align-items: start;
+  }
+  .tline-month {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; color: var(--violet-300); letter-spacing: 0.1em;
+    padding-top: 6px;
+    position: relative; padding-left: 36px;
+  }
+  .tline-month::before {
+    content: ""; position: absolute; left: 0; top: 16px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--violet-400);
+    box-shadow: 0 0 14px var(--violet-400);
+  }
+  .tline-content { display: flex; flex-direction: column; gap: 14px; }
+  .tline-h {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 38px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0;
+  }
+  .tline-sub {
+    font-size: 25px; color: var(--ink-dim); line-height: 1.4; font-weight: 300;
+  }
+
+  /* team */
+  .team-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 22px; margin-top: 50px;
+  }
+  .person {
+    border: 1px solid var(--line); border-radius: 26px;
+    overflow: hidden; background: var(--bg-soft);
+  }
+  .person-photo {
+    aspect-ratio: 4/3;
+    background:
+      radial-gradient(ellipse at 30% 30%, rgba(168,85,247,0.6) 0%, transparent 55%),
+      linear-gradient(135deg, #1a0833 0%, #07000F 100%);
+    display: flex; align-items: flex-end; padding: 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: rgba(196,181,253,0.55);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .person-info { padding: 22px 26px 24px; }
+  .person-name {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 34px; font-weight: 600; letter-spacing: -0.01em; margin: 0;
+  }
+  .person-role {
+    font-size: 24px; color: var(--violet-300); margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace; letter-spacing: 0.04em;
+  }
+
+  /* cases */
+  .cases { display: flex; flex-direction: column; gap: 24px; margin-top: 50px; }
+  .case {
+    border: 1px solid var(--line); border-radius: 28px; padding: 40px 44px;
+    background: linear-gradient(180deg, rgba(124,58,237,0.10) 0%, rgba(7,0,15,0) 100%);
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; align-items: center;
+  }
+  .case-num {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 500;
+    font-size: 110px; line-height: 0.95; letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #FFFFFF 0%, #C4B5FD 60%, #7C3AED 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .case-num .small { font-size: 56px; color: var(--violet-300); -webkit-text-fill-color: var(--violet-300); }
+  .case-q {
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: 28px; line-height: 1.35; color: var(--violet-200);
+    margin-bottom: 14px;
+  }
+  .case-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: var(--ink-faint); letter-spacing: 0.08em; text-transform: uppercase;
+  }
+
+  /* diffs */
+  .diffs { display: flex; flex-direction: column; gap: 0; margin-top: 50px; }
+  .diff {
+    display: grid; grid-template-columns: 100px 1fr; gap: 30px;
+    padding: 36px 0; border-top: 1px solid var(--line);
+    align-items: start;
+  }
+  .diff-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; color: var(--violet-300); letter-spacing: 0.1em;
+    padding-top: 8px;
+  }
+  .diff-title {
+    font-family: 'Bai Jamjuree', sans-serif;
+    font-size: 42px; font-weight: 600; letter-spacing: -0.015em;
+    margin: 0 0 12px;
+  }
+  .diff-body {
+    font-size: 28px; color: var(--ink-dim); line-height: 1.4; font-weight: 300;
+  }
+
+  /* invest */
+  .invest-wrap {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    margin: auto; gap: 50px;
+  }
+  .invest-pill {
+    display: inline-flex; padding: 16px 32px; border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--violet-200); background: rgba(124,58,237,0.10);
+    white-space: nowrap;
+  }
+  .invest-amount {
+    font-family: 'Bai Jamjuree', sans-serif; font-weight: 500;
+    font-size: 200px; line-height: 1; letter-spacing: -0.04em;
+    background: linear-gradient(180deg, #FFFFFF 0%, #C4B5FD 50%, #7C3AED 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: flex; align-items: baseline; gap: 14px; white-space: nowrap;
+  }
+  .invest-currency {
+    font-size: 80px; color: var(--violet-300);
+    -webkit-text-fill-color: var(--violet-300); font-weight: 300;
+  }
+  .invest-period {
+    font-size: 28px; color: var(--ink-dim); font-weight: 300; letter-spacing: 0.04em;
+  }
+  .invest-pills {
+    display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+    max-width: 900px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 10px 22px; border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 24px; color: var(--violet-200);
+    letter-spacing: 0.06em; text-transform: uppercase;
+    background: rgba(124,58,237,0.08); white-space: nowrap;
+  }
+  .pill-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--violet-400);
+    box-shadow: 0 0 12px var(--violet-400);
+  }
+
+  /* contact */
+  .contact-stack {
+    display: flex; flex-direction: column; gap: 30px;
+    margin-top: 60px; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 30px; color: var(--ink-dim);
+    letter-spacing: 0.06em;
+  }
+  .contact-stack span { color: var(--violet-300); }
+
+  /* letter */
+  .letter {
+    font-size: 38px; line-height: 1.55; color: var(--ink);
+    font-weight: 300; letter-spacing: -0.005em;
+    max-width: 100%;
+  }
+  .letter p { margin: 0 0 28px; }
+  .letter .signature {
+    margin-top: 50px;
+    font-family: 'Instrument Serif', serif; font-style: italic;
+    font-size: 44px; color: var(--violet-300);
+  }
+
+  .row { display: flex; }
+  .col { display: flex; flex-direction: column; }
+</style>
+</head>
+<body>
+
+<deck-stage width="1080" height="1920">
+
+  <!-- 1. CAPA — redesign: split, no central orb, grid pattern -->
+  <section data-label="01 Capa">
+    <div class="grid-bg-strong"></div>
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="cover-grid">
+      <div class="head" style="position: relative; z-index: 3;">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>2026</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; justify-content: center; gap: 0;">
+        <div class="eyebrow" style="margin-bottom: 36px;">— Proposta preparada para</div>
+        <h1 class="cover-headline">
+          Bruno<br>
+          <span class="serif" style="color: var(--violet-300); font-size: 130px;">& Viewpoint</span>
+        </h1>
+
+        <div class="cover-card scrim-violet">
+          <div style="position: relative; z-index: 2;">
+            <div class="cover-card-eyebrow">Sumario · 3 meses</div>
+            <div class="cover-card-text">
+              Um plano direto, com método, time e entregáveis para transformar atenção em receita.
+            </div>
+            <div style="display: flex; gap: 14px; margin-top: 36px; flex-wrap: wrap;">
+              <span class="pill" style="font-size: 24px;"><span class="pill-dot"></span>9 frentes</span>
+              <span class="pill" style="font-size: 24px;"><span class="pill-dot"></span>4 fases</span>
+              <span class="pill" style="font-size: 24px;"><span class="pill-dot"></span>Squad dedicado</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="position: relative; z-index: 3;
+                  display: flex; justify-content: space-between;
+                  font-family: 'JetBrains Mono', monospace;
+                  font-size: 24px; color: var(--ink-dim);
+                  letter-spacing: 0.12em; text-transform: uppercase;">
+        <div>Confidencial</div>
+        <div>v.1.0</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. ABERTURA -->
+  <section data-label="02 Abertura">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>01 / Abertura</div>
+      </div>
+
+      <div style="margin-top: 100px;" class="letter">
+        <div class="eyebrow" style="margin-bottom: 36px;">— Bruno,</div>
+        <p>Esta proposta não é sobre <span class="serif" style="color: var(--violet-300);">o que fazemos</span> — é sobre o que vamos construir juntos nos próximos três meses.</p>
+        <p>Estudamos seu momento, seu mercado e onde sua marca pode chegar. O que segue é um plano direto, com a metodologia, o time e os entregáveis que traduzem visão em resultado mensurável.</p>
+        <p style="color: var(--ink-dim); font-size: 32px;">Obrigado pela confiança em nos avaliar. Vamos ao trabalho.</p>
+        <div class="signature">— Equipe Viewpoint</div>
+      </div>
+
+      <div class="footer">
+        <div>Carta de abertura</div>
+        <div>01</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SOBRE -->
+  <section data-label="03 Sobre">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>02 / Sobre</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Quem somos</div>
+        <h2 class="title-lg">A agência por trás de marcas que <span class="serif grad-text">escalam.</span></h2>
+      </div>
+
+      <p class="body-lg" style="margin-top: 50px;">
+        Somos uma agência full-service que combina mídia performática, conteúdo de alta densidade e estratégia consultiva. Existimos para transformar atenção em receita.
+      </p>
+
+      <div class="img-ph with-orb" style="margin-top: 60px; height: 700px;" data-label="[ orb 3D — abstract sphere ]"></div>
+
+      <div class="footer">
+        <div>Viewpoint · Full-Service</div>
+        <div>02</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. NÚMEROS -->
+  <section data-label="04 Números">
+    <div class="glow-center"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>03 / Escala</div>
+      </div>
+
+      <div style="margin-top: 100px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— A operação em números</div>
+        <h2 class="title-lg">Volume não é<br>argumento — é <span class="serif grad-text">prova.</span></h2>
+      </div>
+
+      <div class="stat-stack">
+        <div class="stat-row">
+          <div class="stat-num">6<span class="small">k</span></div>
+          <div class="stat-lbl">Vídeos produzidos por mês — 60 mil por ano em rotação contínua de canais.</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num">R$2<span class="small">M</span></div>
+          <div class="stat-lbl">Investimento gerenciado em mídia paga ativa, mensalmente, para nossa carteira.</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num">9</div>
+          <div class="stat-lbl">Frentes integradas, da estratégia à produção audiovisual completa.</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Dados consolidados · 2026</div>
+        <div>03</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. DIAGNÓSTICO -->
+  <section data-label="05 Diagnóstico">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>04 / Diagnóstico</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— O contexto do Bruno</div>
+        <h2 class="title-lg">Onde a marca está hoje<br>— e o que precisa <span class="serif grad-text">destravar.</span></h2>
+      </div>
+
+      <div style="margin-top: 60px;">
+        <div class="num-tag" style="margin-bottom: 12px;">SITUAÇÃO ATUAL</div>
+        <ul class="bullets">
+          <li>Presença digital ativa, mas sem narrativa unificada entre canais</li>
+          <li>Tráfego pago operando sem laboratório criativo dedicado</li>
+          <li>Conteúdo produzido em volume insuficiente para o mercado</li>
+          <li>Funil de conversão com gargalos identificáveis em fundo</li>
+        </ul>
+      </div>
+
+      <div style="margin-top: 50px;">
+        <div class="num-tag" style="margin-bottom: 12px;">OPORTUNIDADE</div>
+        <ul class="bullets">
+          <li>Construir sistema de aquisição previsível e escalável</li>
+          <li>Posicionar a marca em estética premium e reconhecível</li>
+          <li>Multiplicar o output criativo sem perder qualidade</li>
+        </ul>
+      </div>
+
+      <div class="footer">
+        <div>Diagnóstico inicial</div>
+        <div>04</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OBJETIVOS -->
+  <section data-label="06 Objetivos">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>05 / Objetivos</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— O que vamos perseguir</div>
+        <h2 class="title-lg">Quatro objetivos.<br>Um norte: <span class="serif grad-text">resultado.</span></h2>
+      </div>
+
+      <div class="diffs">
+        <div class="diff">
+          <div class="diff-num">01</div>
+          <div>
+            <h3 class="diff-title">Audiência qualificada</h3>
+            <p class="diff-body">Expandir base de seguidores e leads alinhados ao perfil de cliente ideal — não números vazios.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">02</div>
+          <div>
+            <h3 class="diff-title">Receita mensurável</h3>
+            <p class="diff-body">Otimizar campanhas e funil para reduzir CAC e maximizar LTV em 90 dias.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">03</div>
+          <div>
+            <h3 class="diff-title">Marca premium</h3>
+            <p class="diff-body">Construir identidade visual e narrativa coerente em todos os pontos de contato.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">04</div>
+          <div>
+            <h3 class="diff-title">Produção escalável</h3>
+            <p class="diff-body">Cadência audiovisual robusta, capaz de alimentar todos os canais sem fadiga criativa.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Objetivos · 90 dias</div>
+        <div>05</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. METODOLOGIA -->
+  <section data-label="07 Metodologia">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>06 / Método</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Método Viewpoint</div>
+        <h2 class="title-lg">Quatro fases, um<br>processo <span class="serif grad-text">sem improviso.</span></h2>
+      </div>
+
+      <div class="steps-vert">
+        <div class="stp">
+          <div class="stp-num">FASE 01</div>
+          <div>
+            <h3 class="stp-title">Imersão</h3>
+            <p class="stp-body">Mergulho no negócio, no cliente e no mercado. Auditoria de ativos, dados e canais. Definição de KPIs.</p>
+          </div>
+        </div>
+        <div class="stp">
+          <div class="stp-num">FASE 02</div>
+          <div>
+            <h3 class="stp-title">Estratégia</h3>
+            <p class="stp-body">Plano de mídia, big idea, arquitetura de conteúdo e roadmap criativo dos próximos 90 dias.</p>
+          </div>
+        </div>
+        <div class="stp">
+          <div class="stp-num">FASE 03</div>
+          <div>
+            <h3 class="stp-title">Execução</h3>
+            <p class="stp-body">Produção em volume, gestão de campanhas, publicação e ativação multicanal com cadência semanal.</p>
+          </div>
+        </div>
+        <div class="stp">
+          <div class="stp-num">FASE 04</div>
+          <div>
+            <h3 class="stp-title">Otimização</h3>
+            <p class="stp-body">Leitura de dados, testes A/B, iteração criativa contínua e relatórios consolidados.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Método proprietário</div>
+        <div>06</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. SERVIÇOS -->
+  <section data-label="08 Serviços">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>07 / Escopo</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— O que está incluso</div>
+        <h2 class="title-lg">Nove frentes sob<br>uma <span class="serif grad-text">única coordenação.</span></h2>
+      </div>
+
+      <div class="svc-grid">
+        <div class="svc">
+          <div class="svc-num">01 / MÍDIA</div>
+          <h3 class="svc-name">Tráfego pago</h3>
+          <p class="svc-desc">Meta Ads, Google Ads e mídia programática.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">02 / IDENTIDADE</div>
+          <h3 class="svc-name">Branding</h3>
+          <p class="svc-desc">Identidade visual e diretrizes de marca.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">03 / CONTEÚDO</div>
+          <h3 class="svc-name">Social media</h3>
+          <p class="svc-desc">Linha editorial, copy e gestão de canais.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">04 / AUDIOVISUAL</div>
+          <h3 class="svc-name">Vídeo & foto</h3>
+          <p class="svc-desc">Produção em volume com qualidade editorial.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">05 / DIGITAL</div>
+          <h3 class="svc-name">Web design</h3>
+          <p class="svc-desc">Landing pages e sites focados em conversão.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">06 / CONSULTORIA</div>
+          <h3 class="svc-name">Estratégia</h3>
+          <p class="svc-desc">Direcionamento sênior e leitura de dados.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">07 / CRM</div>
+          <h3 class="svc-name">E-mail</h3>
+          <p class="svc-desc">Automação de funil e fluxos de nutrição.</p>
+        </div>
+        <div class="svc">
+          <div class="svc-num">08 / PARCERIAS</div>
+          <h3 class="svc-name">Influenciadores</h3>
+          <p class="svc-desc">Curadoria e gestão com creators.</p>
+        </div>
+        <div class="svc" style="grid-column: span 2;">
+          <div class="svc-num">09 / ORGÂNICO</div>
+          <h3 class="svc-name">SEO</h3>
+          <p class="svc-desc">Estratégia de busca e otimização técnica.</p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Escopo modular</div>
+        <div>07</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CRONOGRAMA -->
+  <section data-label="09 Cronograma">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>08 / Cronograma</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Os primeiros 90 dias</div>
+        <h2 class="title-lg">Cada mês entrega<br>marcos <span class="serif grad-text">verificáveis.</span></h2>
+      </div>
+
+      <div class="tline">
+        <div class="tline-item">
+          <div class="tline-month">MÊS 01</div>
+          <div class="tline-content">
+            <h3 class="tline-h">Imersão & setup</h3>
+            <div class="tline-sub">Auditoria, plano de mídia, definição de KPIs, identidade visual aprovada e estruturação de contas e pixels.</div>
+          </div>
+        </div>
+        <div class="tline-item">
+          <div class="tline-month">MÊS 02</div>
+          <div class="tline-content">
+            <h3 class="tline-h">Aceleração</h3>
+            <div class="tline-sub">Cadência plena de publicação, ações com creators, testes A/B e escala das campanhas vencedoras.</div>
+          </div>
+        </div>
+        <div class="tline-item">
+          <div class="tline-month">MÊS 03</div>
+          <div class="tline-content">
+            <h3 class="tline-h">Consolidação</h3>
+            <div class="tline-sub">Biblioteca de conteúdo madura, fluxos ativos, relatório de 90 dias e roadmap para o próximo ciclo.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Cronograma referencial</div>
+        <div>08</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. TIME -->
+  <section data-label="10 Time">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>09 / Time</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Quem cuida da conta</div>
+        <h2 class="title-lg">Time sênior dedicado<br>do <span class="serif grad-text">briefing à entrega.</span></h2>
+      </div>
+
+      <div class="team-grid">
+        <div class="person">
+          <div class="person-photo">[ retrato ]</div>
+          <div class="person-info">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Estrategista líder</div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-photo">[ retrato ]</div>
+          <div class="person-info">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Diretor criativo</div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-photo">[ retrato ]</div>
+          <div class="person-info">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Head de mídia</div>
+          </div>
+        </div>
+        <div class="person">
+          <div class="person-photo">[ retrato ]</div>
+          <div class="person-info">
+            <h4 class="person-name">[ Nome ]</h4>
+            <div class="person-role">Produtor audiovisual</div>
+          </div>
+        </div>
+      </div>
+
+      <p class="body-md" style="margin-top: 36px; font-size: 26px;">
+        Mais um squad operacional de social media, copywriter, designer e gestor de tráfego — alocado de forma exclusiva à conta.
+      </p>
+
+      <div class="footer">
+        <div>4 líderes + squad operacional</div>
+        <div>09</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. CASES -->
+  <section data-label="11 Cases">
+    <div class="glow-tl"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>10 / Cases</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Resultados reais</div>
+        <h2 class="title-lg">Quando metodologia<br>encontra <span class="serif grad-text">execução.</span></h2>
+      </div>
+
+      <div class="cases">
+        <div class="case">
+          <div class="case-num">0→60<span class="small">k</span></div>
+          <div>
+            <div class="case-q">"Em três meses construímos uma audiência inexistente — e qualificada."</div>
+            <div class="case-meta">Cliente · 90 dias</div>
+          </div>
+        </div>
+        <div class="case">
+          <div class="case-num">R$300<span class="small">k</span></div>
+          <div>
+            <div class="case-q">"Faturamento gerado já no primeiro pitch de mentoria após nossa entrada."</div>
+            <div class="case-meta">Cliente · Lançamento</div>
+          </div>
+        </div>
+        <div class="case">
+          <div class="case-num">+R$120<span class="small">k</span></div>
+          <div>
+            <div class="case-q">"A diferença entre o primeiro e o segundo pitch foi o conteúdo do evento."</div>
+            <div class="case-meta">Cliente · Evento presencial</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Cases reais · NDA</div>
+        <div>10</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. DIFERENCIAIS -->
+  <section data-label="12 Diferenciais">
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>11 / Diferenciais</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Por que Viewpoint</div>
+        <h2 class="title-lg">O que não está em<br>nenhuma outra <span class="serif grad-text">proposta.</span></h2>
+      </div>
+
+      <div class="diffs">
+        <div class="diff">
+          <div class="diff-num">A.</div>
+          <div>
+            <h3 class="diff-title">Metodologia proprietária</h3>
+            <p class="diff-body">Quatro fases testadas em centenas de operações, com playbooks documentados e métricas claras.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">B.</div>
+          <div>
+            <h3 class="diff-title">Ferramentas exclusivas</h3>
+            <p class="diff-body">Stack interno desenvolvido para nossos clientes — não disponível no mercado.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">C.</div>
+          <div>
+            <h3 class="diff-title">Qualidade audiovisual</h3>
+            <p class="diff-body">Padrão estético acima da média, com 60 mil vídeos por ano sustentando a curva.</p>
+          </div>
+        </div>
+        <div class="diff">
+          <div class="diff-num">D.</div>
+          <div>
+            <h3 class="diff-title">Portfólio comprovado</h3>
+            <p class="diff-body">Marcas que escalaram audiência, faturamento e posicionamento sob nossa gestão.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Diferenciais Viewpoint</div>
+        <div>11</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. INVESTIMENTO -->
+  <section data-label="13 Investimento">
+    <div class="glow-center"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>12 / Investimento</div>
+      </div>
+
+      <div class="invest-wrap">
+        <div class="invest-pill">Proposta · 3 meses</div>
+
+        <div class="invest-amount">
+          <span class="invest-currency">R$</span>
+          <span>00.000</span>
+          <span style="font-size: 80px; color: var(--violet-300); -webkit-text-fill-color: var(--violet-300); font-weight: 300;">,00</span>
+        </div>
+
+        <div class="invest-period">por mês · todos os entregáveis inclusos</div>
+
+        <div class="invest-pills">
+          <span class="pill"><span class="pill-dot"></span>Tráfego pago</span>
+          <span class="pill"><span class="pill-dot"></span>Branding</span>
+          <span class="pill"><span class="pill-dot"></span>Social media</span>
+          <span class="pill"><span class="pill-dot"></span>Vídeo & foto</span>
+          <span class="pill"><span class="pill-dot"></span>Web design</span>
+          <span class="pill"><span class="pill-dot"></span>Estratégia</span>
+          <span class="pill"><span class="pill-dot"></span>E-mail & CRM</span>
+          <span class="pill"><span class="pill-dot"></span>Influenciadores</span>
+          <span class="pill"><span class="pill-dot"></span>SEO</span>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Investimento · 3 meses</div>
+        <div>12</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14. PRÓXIMOS PASSOS -->
+  <section data-label="14 Próximos passos">
+    <div class="glow-tl"></div>
+    <div class="glow-br"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>13 / Próximos passos</div>
+      </div>
+
+      <div style="margin-top: 90px;">
+        <div class="eyebrow" style="margin-bottom: 28px;">— Daqui em diante</div>
+        <h2 class="title-lg">Três passos até a<br><span class="serif grad-text">primeira entrega.</span></h2>
+      </div>
+
+      <div class="steps-vert">
+        <div class="stp">
+          <div class="stp-num">PASSO 01</div>
+          <div>
+            <h3 class="stp-title">Aprovação</h3>
+            <p class="stp-body">Você revisa, ajustamos juntos qualquer ponto do escopo e formalizamos a parceria.</p>
+          </div>
+        </div>
+        <div class="stp">
+          <div class="stp-num">PASSO 02</div>
+          <div>
+            <h3 class="stp-title">Kickoff</h3>
+            <p class="stp-body">Reunião de imersão, acessos, alinhamento de KPIs e definição do squad dedicado.</p>
+          </div>
+        </div>
+        <div class="stp">
+          <div class="stp-num">PASSO 03</div>
+          <div>
+            <h3 class="stp-title">Operação</h3>
+            <p class="stp-body">Em até 14 dias após kickoff, primeiras campanhas no ar e produção rodando.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Pronto para começar</div>
+        <div>13</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 15. CONTATO -->
+  <section data-label="15 Contato">
+    <div class="glow-center"></div>
+    <div class="grain"></div>
+
+    <div class="pad">
+      <div class="head">
+        <div class="logo"><span class="tri"></span>Viewpoint</div>
+        <div>14 / Contato</div>
+      </div>
+
+      <div style="margin: auto; text-align: center;">
+        <div class="big-tri" style="margin: 0 auto 50px;"></div>
+        <div class="eyebrow" style="margin-bottom: 32px;">— Vamos conversar</div>
+        <h2 class="title-lg">Construir algo<br><span class="serif grad-text">memorável</span><br>começa com<br>uma conversa.</h2>
+
+        <div class="contact-stack">
+          <div><span>↳</span> @viewpoint.com.br</div>
+          <div><span>↳</span> viewpoint.com.br</div>
+          <div><span>↳</span> +55 16 99296-5016</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Viewpoint · 2026</div>
+        <div>Obrigado, Bruno.</div>
+      </div>
+    </div>
+  </section>
+
+</deck-stage>
+
+</body>
+</html>
